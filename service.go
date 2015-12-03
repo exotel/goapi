@@ -72,15 +72,12 @@ func (c *Client) setURL() (err error) {
 
 //Do does the actual job
 func (c *Client) Do() (result interface{}, err error) {
-	fmt.Println("Doing the http request")
 	var ok bool
 	//Check if the action requested is valid or not
-	fmt.Println("//Check if the action requested is valid or not")
 	if ok, err = c.IsValidAction(); !ok {
 		return
 	}
 	//Checking if the data is valid
-	fmt.Println("//Checking if the data is valid")
 	if ok, err = c.IsValidData(); !ok {
 		return
 	}
@@ -91,8 +88,7 @@ func (c *Client) Do() (result interface{}, err error) {
 	if err != nil {
 		return
 	}
-	fmt.Println("Setting the url as concat with base")
 	url := c.baseURL + c.url
-	helpers.MakeHTTPRequest(url, c.Credentials, c.data, true)
+	result, err = helpers.MakeHTTPRequest(url, c.Credentials, c.data, true)
 	return
 }

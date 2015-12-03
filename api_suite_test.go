@@ -8,6 +8,6 @@ import (
 )
 
 func TestApi(t *testing.T) {
-	RegisterFailHandler(Fail)
+	RegisterFailclient(Fail)
 	RunSpecs(t, "Api Suite")
 }

@@ -50,7 +50,7 @@ func (a Action) String() (action string) {
 	case CREATE:
 		action = "CREATE"
 	case BULKREAD:
-		action = "BULKREAD"
+		action = "READ"
 	case READ:
 		action = "READ"
 	case UPDATE:

@@ -104,19 +104,17 @@ func (p *Exorequester) Do() (interface{}, error) {
 	}
 	p.Log("using the url", p.requester.Url)
 	p.Log("using the query parameters", p.requester.QueryData)
-
 	_, body, errs := p.requester.End()
 	if len(errs) > 0 {
 		return nil, fmt.Errorf(assets.String.HTTPRequestError, errs[0])
 	}
 	p.Log("received data", body)
-
-	var responseMap map[string]interface{}
-	err := json.Unmarshal([]byte(body), &responseMap)
+	var respMap = make(map[string]interface{})
+	err := json.Unmarshal([]byte(body), respMap)
 	if err != nil {
 		return nil, err
 	}
-	return &responseMap, nil
+	return respMap, nil
 }
 
 //MakeHTTPRequest makes a request to exotel platform api for desire operation
