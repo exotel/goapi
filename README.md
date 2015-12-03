@@ -1,3 +1,6 @@
+***WARNING : OUTDATED README***
+================================
+
 goexotel
 =====
 ![Go-Exotel](http://homegrown.co.in/wp-content/uploads/2014/07/master-shifu-1024x436.jpg)
