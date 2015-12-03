@@ -16,8 +16,8 @@ type AccountFilter struct {
 
 //AccountUpdatableDetails struct for Update request data
 type AccountUpdatableDetails struct {
-	FriendlyName string
-	Status       string
+	FriendlyName string `queryparam:"FriendlyName"`
+	Status       string `queryparam:"Status"`
 }
 
 //AccountURLS saves the routes its in the format that the text/template library of
