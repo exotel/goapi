@@ -7,6 +7,7 @@ import (
 	"text/template"
 
 	"github.com/exotel/goapi/assets"
+	"github.com/exotel/goapi/assets/types"
 	"github.com/exotel/goapi/helpers"
 )
 
@@ -14,7 +15,7 @@ import (
 func (c Client) IsValidAction() (ok bool, err error) {
 	ok = c.action&c.validActions != 0x00
 	if !ok {
-		err = fmt.Errorf("The method %s is not supported for the resource", c.action)
+		err = fmt.Errorf(assets.String.UnsupportedMethod, c.action)
 	}
 	return
 }
@@ -81,14 +82,13 @@ func (c *Client) Do() (result interface{}, err error) {
 	if ok, err = c.IsValidData(); !ok {
 		return
 	}
-	//TODO: setup url using may be the text/template library
+
 	//forming the url to make request
-	fmt.Println("Setting the url")
 	err = c.setURL()
 	if err != nil {
 		return
 	}
 	url := c.baseURL + c.url
-	result, err = helpers.MakeHTTPRequest(url, c.Credentials, c.data, true)
+	result, err = helpers.MakeHTTPRequest(url, c.Credentials, c.action, c.data, c.mode == types.DEBUG)
 	return
 }

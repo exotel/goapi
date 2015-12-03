@@ -3,6 +3,7 @@ package assets
 type strings struct {
 	InvalidAction             string
 	MandatoryFieldUnavailable string
+	UnsupportedMethod         string
 	PackageInconsistancy      string
 	HTTPRequestError          string
 }
@@ -16,4 +17,5 @@ func init() {
 	String.MandatoryFieldUnavailable = "Mandatory Field %s is empty"
 	String.PackageInconsistancy = "PACKAGE-INCONSISTANCY, REPORT DEVELOPER (sarath@exotel.in) "
 	String.HTTPRequestError = "Error occured while making http request : %s"
+	String.UnsupportedMethod = "The method %s is not supported for the resource"
 }

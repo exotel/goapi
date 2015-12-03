@@ -1,7 +1,6 @@
 package helpers
 
 import (
-	"fmt"
 	"reflect"
 	"time"
 )
@@ -18,8 +17,7 @@ func StructToMap(tag string, structs ...interface{}) (m map[string]interface{}, 
 		}
 		// we only accept structs
 		if v.Kind() != reflect.Struct {
-			err = fmt.Errorf("only accepts structs; got (%+[1]v)%[1]T", v)
-			return
+			continue
 		}
 		tp := v.Type()
 		for i := 0; i < tp.NumField(); i++ {

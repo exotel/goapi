@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"reflect"
 
@@ -43,8 +44,7 @@ func (p *Exorequester) SetHeaders() *Exorequester {
 	p.requester.
 		Set("'User-Agent", "goapi-v1").
 		Set("Accept-language", "es").
-		Set("accept", "application/json").
-		Set("content-type", "application/x-www-form-urlencoded")
+		Set("accept", "application/json")
 	return p
 }
 
@@ -75,7 +75,7 @@ func (p *Exorequester) PUT(url string) *Exorequester {
 //Log writes log for the Client
 func (p *Exorequester) Log(format string, vals ...interface{}) {
 	if p.mode == types.DEBUG {
-		fmt.Println(format, vals)
+		fmt.Printf(format+"\n", vals...)
 	}
 	return
 }
@@ -98,37 +98,46 @@ func (p *Exorequester) Params(requestData interface{}) *Exorequester {
 }
 
 //Do does the execution of request
-func (p *Exorequester) Do() (interface{}, error) {
+func (p *Exorequester) Do() (map[string]interface{}, error) {
 	if p.LastError != nil {
 		return nil, p.LastError
 	}
-	p.Log("using the url", p.requester.Url)
-	p.Log("using the query parameters", p.requester.QueryData)
+	p.Log("using the url : %s", p.requester.Url)
+	p.Log("using the headers : %v", p.requester.Header)
+	p.Log("using autherisation : %v", p.requester.BasicAuth)
+	p.Log("using the query parameters : %v", p.requester.QueryData)
 	_, body, errs := p.requester.End()
 	if len(errs) > 0 {
 		return nil, fmt.Errorf(assets.String.HTTPRequestError, errs[0])
 	}
-	p.Log("received data", body)
+	p.Log("received data %s", body)
 	var respMap = make(map[string]interface{})
-	err := json.Unmarshal([]byte(body), respMap)
+	err := json.Unmarshal([]byte(body), &respMap)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("Error occured decoding the response :" + err.Error())
 	}
 	return respMap, nil
 }
 
 //MakeHTTPRequest makes a request to exotel platform api for desire operation
-func MakeHTTPRequest(url string, credentials types.Credentials, data interface{}, debug bool) (resp interface{}, err error) {
-	resp, err = NewExorequester().
-		POST(url).
+func MakeHTTPRequest(url string, credentials types.Credentials, method types.Action, data interface{}, debug bool) (resp map[string]interface{}, err error) {
+	requester := NewExorequester()
+	switch method {
+	case types.READ, types.BULKREAD:
+		requester = requester.GET(url)
+	case types.CREATE:
+		requester = requester.POST(url)
+	case types.DELETE:
+		requester = requester.DELETE(url)
+	case types.UPDATE:
+		requester = requester.PUT(url)
+	}
+
+	resp, err = requester.
 		SetAuth("X", credentials.AccessToken).
 		SetHeaders().
 		Debug(debug).
 		Params(data).
 		Do()
-
-	if err != nil {
-		fmt.Println("Error :", err.Error())
-	}
 	return
 }

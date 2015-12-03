@@ -17,14 +17,22 @@ type CallService struct {
 //Create sets the action as create
 func (__receiver_CService *CallService) Create() *CallService {
 	__receiver_CService.action = types.CREATE
+	__receiver_CService.data = resources.CallDetails{}
 	__receiver_CService.url = resources.CallURLS[types.CREATE]
 	return __receiver_CService
 }
 
 //Get sets the action as types.READ
 func (__receiver_CService *CallService) Get() *CallService {
-	__receiver_CService.action = types.BULKREAD
-	__receiver_CService.url = resources.CallURLS[types.BULKREAD]
+	if len(__receiver_CService.ResourceID) == 0 {
+		__receiver_CService.action = types.BULKREAD
+		__receiver_CService.data = resources.CallFilter{}
+		__receiver_CService.url = resources.CallURLS[types.BULKREAD]
+	} else {
+		__receiver_CService.data = struct{}{}
+		__receiver_CService.url = resources.CallURLS[types.READ]
+		__receiver_CService.action = types.READ
+	}
 	return __receiver_CService
 }
 
@@ -33,6 +41,7 @@ func (__receiver_CService *CallService) ID(id string) *CallService {
 	__receiver_CService.ResourceID = id
 	switch __receiver_CService.action {
 	case types.BULKREAD:
+		__receiver_CService.data = struct{}{}
 		__receiver_CService.url = resources.CallURLS[types.READ]
 		__receiver_CService.action = types.READ
 

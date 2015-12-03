@@ -17,6 +17,7 @@ type AccountService struct {
 //Create sets the action as create
 func (__receiver_AService *AccountService) Create() *AccountService {
 	__receiver_AService.action = types.CREATE
+	__receiver_AService.data = resources.AccountDetails{}
 	__receiver_AService.url = resources.AccountURLS[types.CREATE]
 	return __receiver_AService
 }
@@ -24,14 +25,22 @@ func (__receiver_AService *AccountService) Create() *AccountService {
 //Update sets the action as update
 func (__receiver_AService *AccountService) Update() *AccountService {
 	__receiver_AService.action = types.UPDATE
+	__receiver_AService.data = resources.AccountUpdatableDetails{}
 	__receiver_AService.url = resources.AccountURLS[types.UPDATE]
 	return __receiver_AService
 }
 
 //Get sets the action as types.READ
 func (__receiver_AService *AccountService) Get() *AccountService {
-	__receiver_AService.action = types.BULKREAD
-	__receiver_AService.url = resources.AccountURLS[types.BULKREAD]
+	if len(__receiver_AService.ResourceID) == 0 {
+		__receiver_AService.action = types.BULKREAD
+		__receiver_AService.data = resources.AccountFilter{}
+		__receiver_AService.url = resources.AccountURLS[types.BULKREAD]
+	} else {
+		__receiver_AService.data = struct{}{}
+		__receiver_AService.url = resources.AccountURLS[types.READ]
+		__receiver_AService.action = types.READ
+	}
 	return __receiver_AService
 }
 
@@ -40,6 +49,7 @@ func (__receiver_AService *AccountService) ID(id string) *AccountService {
 	__receiver_AService.ResourceID = id
 	switch __receiver_AService.action {
 	case types.BULKREAD:
+		__receiver_AService.data = struct{}{}
 		__receiver_AService.url = resources.AccountURLS[types.READ]
 		__receiver_AService.action = types.READ
 

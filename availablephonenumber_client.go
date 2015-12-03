@@ -16,8 +16,15 @@ type AvailablePhoneNumberService struct {
 
 //Get sets the action as types.READ
 func (__receiver_AService *AvailablePhoneNumberService) Get() *AvailablePhoneNumberService {
-	__receiver_AService.action = types.BULKREAD
-	__receiver_AService.url = resources.AvailablePhoneNumberURLS[types.BULKREAD]
+	if len(__receiver_AService.ResourceID) == 0 {
+		__receiver_AService.action = types.BULKREAD
+		__receiver_AService.data = resources.AvailablePhoneNumberFilter{}
+		__receiver_AService.url = resources.AvailablePhoneNumberURLS[types.BULKREAD]
+	} else {
+		__receiver_AService.data = struct{}{}
+		__receiver_AService.url = resources.AvailablePhoneNumberURLS[types.READ]
+		__receiver_AService.action = types.READ
+	}
 	return __receiver_AService
 }
 
@@ -26,6 +33,7 @@ func (__receiver_AService *AvailablePhoneNumberService) ID(id string) *Available
 	__receiver_AService.ResourceID = id
 	switch __receiver_AService.action {
 	case types.BULKREAD:
+		__receiver_AService.data = struct{}{}
 		__receiver_AService.url = resources.AvailablePhoneNumberURLS[types.READ]
 		__receiver_AService.action = types.READ
 

@@ -17,6 +17,7 @@ type IncomingPhoneNumberService struct {
 //Create sets the action as create
 func (__receiver_IService *IncomingPhoneNumberService) Create() *IncomingPhoneNumberService {
 	__receiver_IService.action = types.CREATE
+	__receiver_IService.data = resources.IncomingPhoneNumberDetails{}
 	__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.CREATE]
 	return __receiver_IService
 }
@@ -24,6 +25,7 @@ func (__receiver_IService *IncomingPhoneNumberService) Create() *IncomingPhoneNu
 //Update sets the action as update
 func (__receiver_IService *IncomingPhoneNumberService) Update() *IncomingPhoneNumberService {
 	__receiver_IService.action = types.UPDATE
+	__receiver_IService.data = resources.IncomingPhoneNumberUpdatableDetails{}
 	__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.UPDATE]
 	return __receiver_IService
 }
@@ -31,14 +33,22 @@ func (__receiver_IService *IncomingPhoneNumberService) Update() *IncomingPhoneNu
 //Delete sets the action as types.DELETE
 func (__receiver_IService *IncomingPhoneNumberService) Delete() *IncomingPhoneNumberService {
 	__receiver_IService.action = types.DELETE
+	__receiver_IService.data = struct{}{}
 	__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.DELETE]
 	return __receiver_IService
 }
 
 //Get sets the action as types.READ
 func (__receiver_IService *IncomingPhoneNumberService) Get() *IncomingPhoneNumberService {
-	__receiver_IService.action = types.BULKREAD
-	__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.BULKREAD]
+	if len(__receiver_IService.ResourceID) == 0 {
+		__receiver_IService.action = types.BULKREAD
+		__receiver_IService.data = resources.IncomingPhoneNumberFilter{}
+		__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.BULKREAD]
+	} else {
+		__receiver_IService.data = struct{}{}
+		__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.READ]
+		__receiver_IService.action = types.READ
+	}
 	return __receiver_IService
 }
 
@@ -47,6 +57,7 @@ func (__receiver_IService *IncomingPhoneNumberService) ID(id string) *IncomingPh
 	__receiver_IService.ResourceID = id
 	switch __receiver_IService.action {
 	case types.BULKREAD:
+		__receiver_IService.data = struct{}{}
 		__receiver_IService.url = resources.IncomingPhoneNumberURLS[types.READ]
 		__receiver_IService.action = types.READ
 

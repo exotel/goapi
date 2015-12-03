@@ -21,10 +21,10 @@ type ClientCredentials struct {
 type Mode uint8
 
 const (
-	//DEBUG mode says that the client is in debug mode
-	DEBUG Mode = iota
 	//PRODUCTION production mode says its not in debug mode
-	PRODUCTION
+	PRODUCTION Mode = iota
+	//DEBUG mode says that the client is in debug mode
+	DEBUG
 )
 
 //Action Has the set of actions possible

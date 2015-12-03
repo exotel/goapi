@@ -17,6 +17,7 @@ type {{.Resource}}Service struct {
 {{if .Create}}//Create sets the action as create
 func ({{.Resource | reciever }}Service *{{.Resource}}Service) Create() *{{.Resource}}Service {
 	{{.Resource | reciever }}Service.action = types.CREATE
+	{{.Resource | reciever }}Service.data = resources.{{.Resource}}Details{}
 	{{.Resource | reciever }}Service.url = resources.{{.Resource}}URLS[types.CREATE]
 	return {{.Resource | reciever }}Service
 }
@@ -24,6 +25,7 @@ func ({{.Resource | reciever }}Service *{{.Resource}}Service) Create() *{{.Resou
 {{if .Update}}//Update sets the action as update
 func ({{.Resource | reciever }}Service *{{.Resource}}Service) Update() *{{.Resource}}Service {
 	{{.Resource | reciever }}Service.action = types.UPDATE
+	{{.Resource | reciever }}Service.data = resources.{{.Resource}}UpdatableDetails{}
 	{{.Resource | reciever }}Service.url = resources.{{.Resource}}URLS[types.UPDATE]
 	return {{.Resource | reciever }}Service
 }
@@ -31,14 +33,22 @@ func ({{.Resource | reciever }}Service *{{.Resource}}Service) Update() *{{.Resou
 {{if .Delete}}//Delete sets the action as types.DELETE
 func ({{.Resource | reciever }}Service *{{.Resource}}Service) Delete() *{{.Resource}}Service {
 	{{.Resource | reciever }}Service.action = types.DELETE
+	{{.Resource | reciever }}Service.data = struct{}{}
 	{{.Resource | reciever }}Service.url = resources.{{.Resource}}URLS[types.DELETE]
 	return {{.Resource | reciever }}Service
 }
 {{end}}
 {{if .Read}}//Get sets the action as types.READ
 func ({{.Resource | reciever }}Service *{{.Resource}}Service) Get() *{{.Resource}}Service {
+	if len({{.Resource | reciever }}Service.ResourceID) == 0 {
 	{{.Resource | reciever }}Service.action = types.BULKREAD
+	{{.Resource | reciever }}Service.data = resources.{{.Resource}}Filter{}
 	{{.Resource | reciever }}Service.url = resources.{{.Resource}}URLS[types.BULKREAD]
+	} else {
+	{{.Resource | reciever }}Service.data = struct{}{}
+	{{.Resource | reciever }}Service.url = resources.{{.Resource}}URLS[types.READ]
+	{{.Resource | reciever }}Service.action = types.READ
+	}
 	return {{.Resource | reciever }}Service
 }
 {{end}}
@@ -48,6 +58,7 @@ func ({{.Resource | reciever }}Service *{{.Resource}}Service) ID(id string) *{{.
 	{{.Resource | reciever }}Service.ResourceID = id
 	switch {{.Resource | reciever }}Service.action {
 	case types.BULKREAD:
+	  {{.Resource | reciever }}Service.data = struct{}{}
 	  {{.Resource | reciever }}Service.url = resources.{{.Resource}}URLS[types.READ]
 		{{.Resource | reciever }}Service.action = types.READ
 

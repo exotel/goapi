@@ -16,8 +16,15 @@ type RecordingService struct {
 
 //Get sets the action as types.READ
 func (__receiver_RService *RecordingService) Get() *RecordingService {
-	__receiver_RService.action = types.BULKREAD
-	__receiver_RService.url = resources.RecordingURLS[types.BULKREAD]
+	if len(__receiver_RService.ResourceID) == 0 {
+		__receiver_RService.action = types.BULKREAD
+		__receiver_RService.data = resources.RecordingFilter{}
+		__receiver_RService.url = resources.RecordingURLS[types.BULKREAD]
+	} else {
+		__receiver_RService.data = struct{}{}
+		__receiver_RService.url = resources.RecordingURLS[types.READ]
+		__receiver_RService.action = types.READ
+	}
 	return __receiver_RService
 }
 
@@ -26,6 +33,7 @@ func (__receiver_RService *RecordingService) ID(id string) *RecordingService {
 	__receiver_RService.ResourceID = id
 	switch __receiver_RService.action {
 	case types.BULKREAD:
+		__receiver_RService.data = struct{}{}
 		__receiver_RService.url = resources.RecordingURLS[types.READ]
 		__receiver_RService.action = types.READ
 

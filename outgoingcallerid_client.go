@@ -17,6 +17,7 @@ type OutgoingCallerIDService struct {
 //Create sets the action as create
 func (__receiver_OService *OutgoingCallerIDService) Create() *OutgoingCallerIDService {
 	__receiver_OService.action = types.CREATE
+	__receiver_OService.data = resources.OutgoingCallerIDDetails{}
 	__receiver_OService.url = resources.OutgoingCallerIDURLS[types.CREATE]
 	return __receiver_OService
 }
@@ -24,14 +25,22 @@ func (__receiver_OService *OutgoingCallerIDService) Create() *OutgoingCallerIDSe
 //Delete sets the action as types.DELETE
 func (__receiver_OService *OutgoingCallerIDService) Delete() *OutgoingCallerIDService {
 	__receiver_OService.action = types.DELETE
+	__receiver_OService.data = struct{}{}
 	__receiver_OService.url = resources.OutgoingCallerIDURLS[types.DELETE]
 	return __receiver_OService
 }
 
 //Get sets the action as types.READ
 func (__receiver_OService *OutgoingCallerIDService) Get() *OutgoingCallerIDService {
-	__receiver_OService.action = types.BULKREAD
-	__receiver_OService.url = resources.OutgoingCallerIDURLS[types.BULKREAD]
+	if len(__receiver_OService.ResourceID) == 0 {
+		__receiver_OService.action = types.BULKREAD
+		__receiver_OService.data = resources.OutgoingCallerIDFilter{}
+		__receiver_OService.url = resources.OutgoingCallerIDURLS[types.BULKREAD]
+	} else {
+		__receiver_OService.data = struct{}{}
+		__receiver_OService.url = resources.OutgoingCallerIDURLS[types.READ]
+		__receiver_OService.action = types.READ
+	}
 	return __receiver_OService
 }
 
@@ -40,6 +49,7 @@ func (__receiver_OService *OutgoingCallerIDService) ID(id string) *OutgoingCalle
 	__receiver_OService.ResourceID = id
 	switch __receiver_OService.action {
 	case types.BULKREAD:
+		__receiver_OService.data = struct{}{}
 		__receiver_OService.url = resources.OutgoingCallerIDURLS[types.READ]
 		__receiver_OService.action = types.READ
 
