@@ -1,0 +1,2 @@
+search - (type (\S+) struct\{\})
+replace - \n//$2 struct for $2 request data \n$1

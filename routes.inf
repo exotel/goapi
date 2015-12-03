@@ -1,0 +1,58 @@
+The available end points
+---------------------------------------------------------------------------------------------------
+/GET /v1/Accounts
+/POST /v1/Accounts
+/PUT /v1/Accounts/:accountsid
+/GET /v1/Accounts/:accountsid
+
+/GET /v1/Accounts/:accountsid/IncomingPhoneNumbers/:ipnsid
+/GET /v1/Accounts/:accountsid/IncomingPhoneNumbers
+
+
+/POST /v1/Accounts/:accountsid/IncomingPhoneNumbers
+/PUT /v1/Accounts/:accountsid/IncomingPhoneNumbers/:ipnsid
+/DELETE /v1/Accounts/:accountsid/IncomingPhoneNumbers/:ipnsid
+
+/POST /v1/Accounts/:accountsid/OutgoingCallerIds
+/GET /v1/Accounts/:accountsid/OutgoingCallerIds
+/GET /v1/Accounts/:accountsid/OutgoingCallerIds/:ocisid
+/DELETE /v1/Accounts/:accountsid/OutgoingCallerIds/:ocisid
+
+/GET /v1/Accounts/:accountsid/AvailablePhoneNumbers/:country/Local
+
+/POST /v1/Accounts/:accountsid/Calls
+/GET /v1/Accounts/:accountsid/Calls/:callsid
+
+/GET /v1/Accounts/:accountsid/Recordings
+/GET /v1/Accounts/:accountsid/Recordings/:recsid
+/GET /v1/Accounts/:accountsid/Calls/:callsid/Recordings
+
+
+/*********************************************************************************************************
+                                             initialize the client
+*********************************************************************************************************/
+import api
+credentials := api.Credentials{
+    UserCredentials: UserCredentials{AccessToken: "ACCESS_TOKEN"},
+    ClientCredentials: ClientCredentials{ClientID: "CLIENT_id",ClientSecret : "CLIENT_SECRET"}
+  }
+client := iam.New(credentials,accountSid/nil)
+
+client.AreYouAlive()
+
+client.Accounts().Create().Details()
+client.Accounts().Update().Details()
+client.Accounts().Get().Filter()
+
+client.IncomingPhoneNumbers().Create().Details()
+client.IncomingPhoneNumbers().ID().Update().Details()
+client.IncomingPhoneNumbers().ID().Delete()
+
+client.OutgoingCallerIDs().Create().Details()
+client.OutgoingCallerIDs().Get().Filter()
+client.OutgoingCallerIDs().ID().Get()
+client.OutgoingCallerIDs().ID().Delete()
+
+client.AvailablePhoneNumbers().Get().Filter()
+
+client.Calls().Create()
