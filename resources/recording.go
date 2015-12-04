@@ -4,7 +4,7 @@ import "github.com/exotel/goapi/assets/types"
 
 //RecordingFilter struct for Get request data
 type RecordingFilter struct {
-	CallSid string
+	CallSid string `queryparam:"CallSid"`
 }
 
 //RecordingURLS saves the routes its in the format that the text/template library of

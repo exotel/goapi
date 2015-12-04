@@ -102,11 +102,12 @@ func (p *Exorequester) Do() (map[string]interface{}, error) {
 	if p.LastError != nil {
 		return nil, p.LastError
 	}
-	p.Log("using the url : %s", p.requester.Url)
+	p.Log("\nusing the url : %s", p.requester.Url)
 	p.Log("using the headers : %v", p.requester.Header)
 	p.Log("using autherisation : %v", p.requester.BasicAuth)
 	p.Log("using the query parameters : %v", p.requester.QueryData)
 	_, body, errs := p.requester.End()
+
 	if len(errs) > 0 {
 		return nil, fmt.Errorf(assets.String.HTTPRequestError, errs[0])
 	}

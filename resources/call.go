@@ -4,23 +4,22 @@ import "github.com/exotel/goapi/assets/types"
 
 //CallDetails struct for CallDetails request data
 type CallDetails struct {
-	ParentAccountSid     string
-	AccountSid           string
-	Userid               string
-	From                 string `mandatory:"true"`
-	To                   string `mandatory:"true"`
-	URL                  string `mandatory:"true"`
-	Method               string
-	FallbackURL          string
-	FallbackMethod       string
-	StatusCallback       string
-	StatusCallbackMethod string
-	StatusCallbackEvents []string
-	SendDigits           string
-	Timeout              int
-	Record               bool
-	IfMachine            string
-	RequestID            string
+	AccountSid           string   `queryparam:"AccountSid"`
+	Userid               string   `queryparam:"Userid"`
+	From                 string   `mandatory:"true" queryparam:"From"`
+	To                   string   `mandatory:"true" queryparam:"To"`
+	URL                  string   `mandatory:"true" queryparam:"URL"`
+	Method               string   `queryparam:"Method"`
+	FallbackURL          string   `queryparam:"FallbackURL"`
+	FallbackMethod       string   `queryparam:"FallbackMethod"`
+	StatusCallback       string   `queryparam:"StatusCallback"`
+	StatusCallbackMethod string   `queryparam:"StatusCallbackMethod"`
+	StatusCallbackEvents []string `queryparam:"StatusCallbackEvents"`
+	SendDigits           string   `queryparam:"SendDigits"`
+	Timeout              int      `queryparam:"Timeout"`
+	Record               bool     `queryparam:"Record"`
+	IfMachine            string   `queryparam:"IfMachine"`
+	RequestID            string   `queryparam:"RequestID"`
 }
 
 //CallFilter the filter struct for call search

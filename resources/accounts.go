@@ -10,8 +10,8 @@ type AccountDetails struct {
 
 //AccountFilter struct for AccountFilter request data
 type AccountFilter struct {
-	FriendlyName string
-	Status       string
+	FriendlyName string `queryparam:"FriendlyName"`
+	Status       string `queryparam:"Status"`
 }
 
 //AccountUpdatableDetails struct for Update request data
