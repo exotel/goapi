@@ -8,6 +8,7 @@ type Credentials struct {
 
 //UserCredentials the users credentials
 type UserCredentials struct {
+	UserName    string
 	AccessToken string
 }
 
@@ -57,6 +58,8 @@ func (a Action) String() (action string) {
 		action = "UPDATE"
 	case DELETE:
 		action = "DELETE"
+	default:
+		action = "INVALIDMETHOD"
 	}
 	return
 }

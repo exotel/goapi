@@ -5,7 +5,7 @@ import "github.com/exotel/goapi/assets/types"
 //AvailablePhoneNumberFilter struct for AvailablePhoneNumberFilter request data
 type AvailablePhoneNumberFilter struct {
 	ParentAccountSid string  `queryparam:"ParentAccountSid"`
-	IsoCountry       string  `mandatory:"true"`
+	IsoCountry       string  `mandatory:"true" url:"IsoCountry"`
 	Contains         *string `queryparam:"Contains"`
 	SmsEnabled       bool    `queryparam:"SmsEnabled"`
 	MmsEnabled       bool    `queryparam:"MmsEnabled"`

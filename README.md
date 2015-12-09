@@ -15,44 +15,71 @@ goexotel
 ####how to use
 Install the library using `go get`
 ```
-go get https://github.com/exotel/goapi
+go get github.com/exotel/goapi
 ```
+
+or for keeping the version number
+```
+go get gopkg.in/exotel/goapi.v0 //for version v0.x.x
+```
+
+
 #####using the client
+initiate the client
 ```
-credential := goapi.Credential{
-    UserCredentials: goapi.UserCredentials{AccessToken: "1212121"},
-    ClientCredentials: goapi.ClientCredentials{ClientID: "asasa"}
-  }
-client := goapi.New(credential)
-client.SetAccountSid("ACCONTSID")
+credentials := types.Credentials{
+  UserCredentials:   types.UserCredentials{AccessToken: "APIAccessToken", UserName: "APIUsername"},
+  ClientCredentials: types.ClientCredentials{ClientID: "CLIENT_id", ClientSecret: "CLIENT_SECRET"},
+}
+client = api.New(credentials)
+client.SetAccountSid("<ACCOUNT_SID>") //parent working
 ```
+
 for adding a sub account
 
 ```
- credential = gapi.Credential{
-   goapi.UserCredentials{AccessToken: "1212121"},
-   goapi.ClientCredentials{ClientID: ""},
- }
-
- accountDetails := resources.AccountDetails{FriendlyName: "SUB-ACCOUNTNAME", CountryCode: "SNG"}
- client := goapi.New(credential)
- client.SetAccountSid("ACCONTSID")
- result,err := client
- Account().
- Create().
- Details(accountDetails).
- Do()
-
-if err != nil {
- log.Fatal(err)
- return
+c := client.
+  Account().
+  Create().
+  Details(resources.AccountDetails{FriendlyName: "SARATH TESTING", CountryCode: "SNG"})
+if status, data, err := c.Do(); err != nil {
+  fmt.Printf(err.Error())
+} else {
+  fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
 }
-
-if result != nil  {
- //Do whatever
-}
-
 ```
+
+
+#####For any resource do the following
+consider resource is  `Resource` and the CRUD is allowed for `Resource`
+
+
+1 . Create Request
+```
+client.Resource().Create().Details(resources.ResourceDetails{}).Do
+```  
+2 . Read Request
+* bulk
+```
+client.Resource().Create().Details(resources.ResourceDetails{}).Do
+```
+* Single
+```
+client.Resource().ID(string).Get().Do
+```
+
+3 . Update Request
+```
+client.Resource().ID(string).Update().UpdateDetails(resources.ResourceUpdatableDetails{}).Do
+```
+
+
+4 . Delete Request
+```
+client.Resource().ID(string).Delete().Do()
+```
+
+
 
 
 ####Sample Code
@@ -67,60 +94,37 @@ import (
 	"github.com/exotel/goapi/resources"
 )
 
-func main() {
+func initClient() (client *api.Client) {
 	credentials := types.Credentials{
-		UserCredentials:   types.UserCredentials{AccessToken: "ACCESSTOKEN"},
+		UserCredentials:   types.UserCredentials{AccessToken: "APIAccessToken", UserName: "APIUsername"},
 		ClientCredentials: types.ClientCredentials{ClientID: "CLIENT_id", ClientSecret: "CLIENT_SECRET"},
 	}
-	client := api.New(credentials)
-	client.SetAccountSid("ACCOUNT_SID") //parent working
+	client = api.New(credentials)
+	client.SetAccountSid("<ACCOUNT_SID>") //parent working
+	return
+}
 
-	// CREATE
-	c := client.Debug(true).
-		Account().
-		Create().
-		Details(resources.AccountDetails{FriendlyName: "SARATH TESTING", CountryCode: "SNG"})
-	if data, err := c.Do(); err != nil {
-		fmt.Printf(err.Error())
+
+//ExampleCall Create call example
+func ExampleCall(client *api.Client) {
+	var callDetails resources.CallDetails
+	callDetails.From = "+918030752401"
+	callDetails.To = "+919742033616"
+	callDetails.URL = "http://98ae7c6f.ngrok.io/dial/+919742033616"
+	callDetails.Method = "GET"
+
+	if status, data, err := client.Debug(true).Call().Create().Details(callDetails).Do(); err != nil {
+		fmt.Println("error occured", err.Error())
+
 	} else {
-		fmt.Println("No Error occured while doing the operation", data)
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
 	}
+}
 
-	// GET - Single
-	c = client.Debug(true).
-		Account().
-		ID("SUBACCOUNT_ID").
-		Get()
-
-	if data, err := c.Do(); err != nil {
-		fmt.Printf(err.Error())
-	} else {
-		fmt.Println("No Error occured while doing the operation", data)
-	}
-
-	// GET - bulk
-	c = client.Debug(true).
-		Account().
-		Get()
-
-	if data, err := c.Do(); err != nil {
-		fmt.Printf(err.Error())
-	} else {
-		fmt.Println("No Error occured while doing the operation", data)
-	}
-
-	//UPDATE
-	c = client.
-		Debug(true).
-		Account().
-		ID("SUBACCOUNT_ID").
-		Update().
-		UpdateDetails(resources.AccountUpdatableDetails{FriendlyName: "blinkasya"})
-	if data, err := c.Do(); err != nil {
-		fmt.Printf(err.Error())
-	} else {
-		fmt.Println("No Error occured while doing the operation", data)
-	}
+func main() {
+	client := initClient()
+  //makes a call
+	ExampleCall(client)
 }
 
 ```

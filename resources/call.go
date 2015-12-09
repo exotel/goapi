@@ -8,7 +8,7 @@ type CallDetails struct {
 	Userid               string   `queryparam:"Userid"`
 	From                 string   `mandatory:"true" queryparam:"From"`
 	To                   string   `mandatory:"true" queryparam:"To"`
-	URL                  string   `mandatory:"true" queryparam:"URL"`
+	URL                  string   `mandatory:"true" queryparam:"Url"`
 	Method               string   `queryparam:"Method"`
 	FallbackURL          string   `queryparam:"FallbackURL"`
 	FallbackMethod       string   `queryparam:"FallbackMethod"`

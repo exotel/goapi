@@ -6,6 +6,7 @@ type strings struct {
 	UnsupportedMethod         string
 	PackageInconsistancy      string
 	HTTPRequestError          string
+	MethodNotSpecified        string
 }
 
 //Strings has all the constant strings defined
@@ -18,4 +19,10 @@ func init() {
 	String.PackageInconsistancy = "PACKAGE-INCONSISTANCY, REPORT DEVELOPER (sarath@exotel.in) "
 	String.HTTPRequestError = "Error occured while making http request : %s"
 	String.UnsupportedMethod = "The method %s is not supported for the resource"
+	String.MethodNotSpecified = "Method is not specified"
 }
+
+//Method constant
+var Methods = struct {
+	Get, Post, Delete, Put string
+}{"GET", "POST", "DELETE", "PUT"}

@@ -8,6 +8,7 @@ import (
 //Client is the iam client struct that calls all the other services
 type Client struct {
 	AccountSid   string `url:"AccountSid"`
+	UserName     string
 	ResourceID   string `url:"ResourceID"`
 	url          string
 	data         resources.IResource
@@ -25,6 +26,12 @@ func New(cr types.Credentials) *Client {
 
 //SetAccountSid sets the account sid of the user
 func (c *Client) SetAccountSid(accountSid string) *Client {
+	c.AccountSid = accountSid
+	return c
+}
+
+//SetUserName sets the user name of the user
+func (c *Client) SetUserName(accountSid string) *Client {
 	c.AccountSid = accountSid
 	return c
 }

@@ -80,7 +80,7 @@ func (p *Exorequester) Log(format string, vals ...interface{}) {
 	return
 }
 
-//Params sets the parameters for requests
+//Params sets the parameters for requestss
 func (p *Exorequester) Params(requestData interface{}) *Exorequester {
 	if p.LastError != nil {
 		return p
@@ -98,30 +98,33 @@ func (p *Exorequester) Params(requestData interface{}) *Exorequester {
 }
 
 //Do does the execution of request
-func (p *Exorequester) Do() (map[string]interface{}, error) {
+func (p *Exorequester) Do() (status int, response map[string]interface{}, err error) {
 	if p.LastError != nil {
-		return nil, p.LastError
+		err = p.LastError
+		return
 	}
 	p.Log("\nusing the url : %s", p.requester.Url)
 	p.Log("using the headers : %v", p.requester.Header)
 	p.Log("using autherisation : %v", p.requester.BasicAuth)
 	p.Log("using the query parameters : %v", p.requester.QueryData)
-	_, body, errs := p.requester.End()
 
+	resp, body, errs := p.requester.End()
+	status = resp.StatusCode
 	if len(errs) > 0 {
-		return nil, fmt.Errorf(assets.String.HTTPRequestError, errs[0])
+		err = fmt.Errorf(assets.String.HTTPRequestError, errs[0])
+		return
 	}
 	p.Log("received data %s", body)
-	var respMap = make(map[string]interface{})
-	err := json.Unmarshal([]byte(body), &respMap)
+	response = make(map[string]interface{})
+	err = json.Unmarshal([]byte(body), &response)
 	if err != nil {
-		return nil, errors.New("Error occured decoding the response :" + err.Error())
+		err = errors.New("Error occured decoding the response :" + err.Error())
 	}
-	return respMap, nil
+	return
 }
 
 //MakeHTTPRequest makes a request to exotel platform api for desire operation
-func MakeHTTPRequest(url string, credentials types.Credentials, method types.Action, data interface{}, debug bool) (resp map[string]interface{}, err error) {
+func MakeHTTPRequest(url string, credentials types.Credentials, method types.Action, data interface{}, debug bool) (status int, resp map[string]interface{}, err error) {
 	requester := NewExorequester()
 	switch method {
 	case types.READ, types.BULKREAD:
@@ -134,8 +137,8 @@ func MakeHTTPRequest(url string, credentials types.Credentials, method types.Act
 		requester = requester.PUT(url)
 	}
 
-	resp, err = requester.
-		SetAuth("X", credentials.AccessToken).
+	status, resp, err = requester.
+		SetAuth(credentials.UserName, credentials.AccessToken).
 		SetHeaders().
 		Debug(debug).
 		Params(data).

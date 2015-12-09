@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"reflect"
 	"text/template"
@@ -12,10 +13,25 @@ import (
 )
 
 //IsValidAction Checks if there are enough details for the execution
+//It checks for if an action is set and if set is it a valid action on that resources
+//For example if a resource does not accept POST then action being POST would return error
 func (c Client) IsValidAction() (ok bool, err error) {
 	ok = c.action&c.validActions != 0x00
 	if !ok {
+		if c.action == types.Action(0) {
+			err = fmt.Errorf(assets.String.MethodNotSpecified)
+		}
 		err = fmt.Errorf(assets.String.UnsupportedMethod, c.action)
+	}
+	return
+}
+
+//IsValidCredentials Checks if the available credentials are valid or not
+//checks if credentials are provded ,it does not check if the provided credentials are valid or not
+func (c Client) IsValidCredentials() (ok bool, err error) {
+	ok = len(c.Credentials.UserName) != 0 && len(c.Credentials.AccessToken) != 0
+	if !ok {
+		err = errors.New("ACCESS_TOKEN and 	USERNAME are mandatory")
 	}
 	return
 }
@@ -38,9 +54,12 @@ func (c Client) IsValidData() (ok bool, err error) {
 	for i := 0; i < tp.NumField(); i++ {
 		field := tp.Field(i)
 		emptyValue := helpers.IsEmptyValue(v.Field(i))
+		fmt.Println(field.Name, " => ", v.Field(i).Interface())
 		if emptyValue {
+			fmt.Println("EMPTY VALUE", field.Name, " => ", v.Field(i).Interface())
 			if tagv := field.Tag.Get("mandatory"); tagv == "true" {
 				err = fmt.Errorf(assets.String.MandatoryFieldUnavailable, field.Name)
+				return
 			}
 		}
 	}
@@ -72,8 +91,13 @@ func (c *Client) setURL() (err error) {
 }
 
 //Do does the actual job
-func (c *Client) Do() (result interface{}, err error) {
+func (c *Client) Do() (status int, result map[string]interface{}, err error) {
 	var ok bool
+	//Check if the credentials are provded
+	if ok, err = c.IsValidCredentials(); !ok {
+		return
+	}
+
 	//Check if the action requested is valid or not
 	if ok, err = c.IsValidAction(); !ok {
 		return
@@ -89,6 +113,6 @@ func (c *Client) Do() (result interface{}, err error) {
 		return
 	}
 	url := c.baseURL + c.url
-	result, err = helpers.MakeHTTPRequest(url, c.Credentials, c.action, c.data, c.mode == types.DEBUG)
+	status, result, err = helpers.MakeHTTPRequest(url, c.Credentials, c.action, c.data, c.mode == types.DEBUG)
 	return
 }

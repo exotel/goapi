@@ -8,23 +8,27 @@ import (
 	"github.com/exotel/goapi/resources"
 )
 
-func main() {
+func initClient() (client *api.Client) {
 	credentials := types.Credentials{
-		UserCredentials:   types.UserCredentials{AccessToken: "ACCESSTOKEN"},
+		UserCredentials:   types.UserCredentials{AccessToken: "APIAccessToken", UserName: "APIUsername"},
 		ClientCredentials: types.ClientCredentials{ClientID: "CLIENT_id", ClientSecret: "CLIENT_SECRET"},
 	}
-	client := api.New(credentials)
-	client.SetAccountSid("ACCOUNT_SID") //parent working
+	client = api.New(credentials)
+	client.SetAccountSid("<ACCOUNT_SID>") //parent working
+	return
+}
 
+//ExampleAccount shows all the account
+func ExampleAccount(client *api.Client) {
 	// CREATE
 	c := client.Debug(true).
 		Account().
 		Create().
 		Details(resources.AccountDetails{FriendlyName: "SARATH TESTING", CountryCode: "SNG"})
-	if data, err := c.Do(); err != nil {
+	if status, data, err := c.Do(); err != nil {
 		fmt.Printf(err.Error())
 	} else {
-		fmt.Println("No Error occured while doing the operation", data)
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
 	}
 
 	// GET - Single
@@ -33,10 +37,10 @@ func main() {
 		ID("SUBACCOUNT_ID").
 		Get()
 
-	if data, err := c.Do(); err != nil {
+	if status, data, err := c.Do(); err != nil {
 		fmt.Printf(err.Error())
 	} else {
-		fmt.Println("No Error occured while doing the operation", data)
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
 	}
 
 	// GET - bulk
@@ -44,10 +48,10 @@ func main() {
 		Account().
 		Get()
 
-	if data, err := c.Do(); err != nil {
+	if status, data, err := c.Do(); err != nil {
 		fmt.Printf(err.Error())
 	} else {
-		fmt.Println("No Error occured while doing the operation", data)
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
 	}
 
 	//UPDATE
@@ -57,9 +61,41 @@ func main() {
 		ID("SUBACCOUNT_ID").
 		Update().
 		UpdateDetails(resources.AccountUpdatableDetails{FriendlyName: "blinkasya"})
-	if data, err := c.Do(); err != nil {
+	if status, data, err := c.Do(); err != nil {
 		fmt.Printf(err.Error())
 	} else {
-		fmt.Println("No Error occured while doing the operation", data)
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
 	}
+}
+
+//ExampleAvailablePhoneNumber has an example use of AvailablePhoneNumber resource
+func ExampleAvailablePhoneNumber(client *api.Client) {
+	var filter resources.AvailablePhoneNumberFilter
+	filter.IsoCountry = "SG"
+	if status, data, err := client.Debug(true).AvailablePhoneNumber().Get().Filter(filter).Do(); err != nil {
+		fmt.Println("error occured", err.Error())
+	} else {
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
+	}
+}
+
+//ExampleCall Create call example
+func ExampleCall(client *api.Client) {
+	var callDetails resources.CallDetails
+	callDetails.From = "+918030752401"
+	callDetails.To = "+919742033616"
+	callDetails.URL = "http://98ae7c6f.ngrok.io/dial/+919742033616"
+	callDetails.Method = "GET"
+
+	if status, data, err := client.Debug(true).Call().Create().Details(callDetails).Do(); err != nil {
+		fmt.Println("error occured", err.Error())
+
+	} else {
+		fmt.Printf("No Error occured while doing the operation\nstatus : %d\ndata%v", status, data)
+	}
+}
+
+func main() {
+	client := initClient()
+	ExampleCall(client)
 }
