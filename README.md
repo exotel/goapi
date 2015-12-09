@@ -1,4 +1,4 @@
-goexotel
+goexotel [![GoDoc](https://godoc.org/gopkg.in/exotel/goapi.v0?status.svg)](https://godoc.org/gopkg.in/exotel/goapi.v0)
 =====
 ![Go-Exotel](http://homegrown.co.in/wp-content/uploads/2014/07/master-shifu-1024x436.jpg)
 ####What is it?
