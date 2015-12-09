@@ -23,7 +23,6 @@ or for keeping the version number
 go get gopkg.in/exotel/goapi.v0 //for version v0.x.x
 ```
 
-
 #####using the client
 initiate the client
 ```
@@ -128,5 +127,37 @@ func main() {
 }
 
 ```
+
+
+
+####What f i don't have go installed ?
+This is how you can install go in linux [this is for version 1.5.2 of golang]
+```
+wget https://storage.googleapis.com/golang/go1.5.2.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.5.2.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+
+now you have go installed,try checking by checking the version
+```
+go version
+```
+
+Now you have to set the Workspace,say you are setting,~/go as the worksapce
+this is how it is done
+```
+export GOPATH=$HOME/go
+```
+
+Add these two  export statements in ~/.bashrc so that its set all the time
+Now you are ready to test goexoml,get the library using go get
+ie,
+```
+go get github.com/exotel/goexoml
+```
+
+Now you can copy paste the sample codes from example folder and test
+
+
 ####contributions
 sarath@exotel.in

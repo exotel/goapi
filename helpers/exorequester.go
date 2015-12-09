@@ -109,11 +109,20 @@ func (p *Exorequester) Do() (status int, response map[string]interface{}, err er
 	p.Log("using the query parameters : %v", p.requester.QueryData)
 
 	resp, body, errs := p.requester.End()
-	status = resp.StatusCode
+
 	if len(errs) > 0 {
 		err = fmt.Errorf(assets.String.HTTPRequestError, errs[0])
 		return
 	}
+	if resp == nil {
+		err = fmt.Errorf(assets.String.HTTPRequestError, "Unable to Connect")
+		return
+	}
+
+	if resp != nil {
+		status = resp.StatusCode
+	}
+
 	p.Log("received data %s", body)
 	response = make(map[string]interface{})
 	err = json.Unmarshal([]byte(body), &response)
