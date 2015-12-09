@@ -61,7 +61,7 @@ client.Resource().Create().Details(resources.ResourceDetails{}).Do
 2 . Read Request
 * bulk
 ```
-client.Resource().Create().Details(resources.ResourceDetails{}).Do
+client.Resource().Get().Filter(resources.ResourceFilter{}).Do()
 ```
 * Single
 ```
