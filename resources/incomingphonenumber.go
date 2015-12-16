@@ -1,6 +1,10 @@
 package resources
 
-import "github.com/exotel/goapi/assets/types"
+import (
+	"time"
+
+	"github.com/exotel/goapi/assets/types"
+)
 
 //IncomingPhoneNumberDetails struct for IncomingPhoneNumberDetails request data
 type IncomingPhoneNumberDetails struct {
@@ -49,6 +53,48 @@ type IncomingPhoneNumberUpdatableDetails struct {
 	SmsFallbackMethod    string `queryparam:"SmsFallbackMethod"`
 	SmsApplicationSid    string `queryparam:"SmsApplicationSid"`
 }
+
+// IncomingPhoneNumber is a struct for IPN Details in response
+type IncomingPhoneNumber struct {
+	Sid                  string       `json:"sid"`
+	AccountSid           string       `json:"account_sid"`
+	FriendlyName         string       `json:"friendly_name"`
+	PhoneNumber          string       `json:"phone_number"`
+	VoiceURL             *string      `json:"voice_url"`
+	VoiceMethod          string       `json:"voice_method"`
+	VoiceFallbackURL     *string      `json:"voice_fallback_url"`
+	VoiceFallbackMethod  string       `json:"voice_fallback_method"`
+	VoiceCallerIDLookup  *string      `json:"voice_called_id_lookup"`
+	DateCreated          time.Time    `json:"date_created"`
+	DateUpdated          time.Time    `json:"date_updated"`
+	SmsURL               *string      `json:"sms_url"`
+	SmsMethod            string       `json:"sms_method"`
+	SmsFallbackURL       *string      `json:"sms_fallback_url"`
+	SmsFallbackMethod    string       `json:"sms_fallback_method"`
+	Capabilities         Capabilities `json:"capabilities"`
+	StatusCallback       *string      `json:"status_callback"`
+	StatusCallbackMethod string       `json:"status_callback_method"`
+	APIVersion           string       `json:"api_version"`
+	URI                  string       `json:"uri"`
+}
+
+//CreateIncomingPhoneNumberResponse has the struct definition for account creation rsponse
+type CreateIncomingPhoneNumberResponse struct {
+	IncomingPhoneNumber
+}
+
+//UpdateIncomingPhoneNumberResponse has the struct definition for IncomingPhoneNumber update request
+type UpdateIncomingPhoneNumberResponse struct {
+	IncomingPhoneNumber
+}
+
+//GetIncomingPhoneNumberResponse has the response structure for Get requests
+type GetIncomingPhoneNumberResponse struct {
+	IncomingPhoneNumber
+}
+
+//BulkGetIncomingPhoneNumberResponse defines structure of bulk get call details request response
+type BulkGetIncomingPhoneNumberResponse []GetAccountResponse
 
 //IncomingPhoneNumberURLS saves the routes its in the format that the text/template library of
 //go can accept

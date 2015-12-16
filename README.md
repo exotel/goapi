@@ -1,4 +1,4 @@
-goexotel [![GoDoc](https://godoc.org/gopkg.in/exotel/goapi.v0?status.svg)](https://godoc.org/gopkg.in/exotel/goapi.v0)
+goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https://godoc.org/github.com/exotel/goapi)
 =====
 ![Go-Exotel](http://homegrown.co.in/wp-content/uploads/2014/07/master-shifu-1024x436.jpg)
 ####What is it?
@@ -130,7 +130,7 @@ func main() {
 
 
 
-####What f i don't have go installed ?
+####What if i don't have go installed ?
 This is how you can install go in linux [this is for version 1.5.2 of golang]
 ```
 wget https://storage.googleapis.com/golang/go1.5.2.linux-amd64.tar.gz
@@ -156,7 +156,10 @@ ie,
 go get github.com/exotel/goexoml
 ```
 
-Now you can copy paste the sample codes from example folder and test
+Now you can copy paste the sample codes from example folder to `path/to/filename.go` and test by running as
+```
+go run path/to/filename.go
+````
 
 
 ####contributions

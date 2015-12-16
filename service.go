@@ -2,6 +2,7 @@ package api
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"reflect"
@@ -113,6 +114,12 @@ func (c *Client) Do() (status int, result map[string]interface{}, err error) {
 		return
 	}
 	url := c.baseURL + c.url
-	status, result, err = helpers.MakeHTTPRequest(url, c.Credentials, c.action, c.data, c.mode == types.DEBUG)
+	var bresult []byte
+	status, bresult, err = helpers.MakeHTTPRequest(url, c.Credentials, c.action, c.data, c.mode == types.DEBUG)
+	if err != nil {
+		return
+	}
+	result = make(map[string]interface{})
+	err = json.Unmarshal(bresult, &result)
 	return
 }

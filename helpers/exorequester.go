@@ -1,7 +1,6 @@
 package helpers
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"reflect"
@@ -98,7 +97,7 @@ func (p *Exorequester) Params(requestData interface{}) *Exorequester {
 }
 
 //Do does the execution of request
-func (p *Exorequester) Do() (status int, response map[string]interface{}, err error) {
+func (p *Exorequester) Do() (status int, response []byte, err error) {
 	if p.LastError != nil {
 		err = p.LastError
 		return
@@ -124,8 +123,8 @@ func (p *Exorequester) Do() (status int, response map[string]interface{}, err er
 	}
 
 	p.Log("received data %s", body)
-	response = make(map[string]interface{})
-	err = json.Unmarshal([]byte(body), &response)
+	response = make([]byte, len(body))
+	response = []byte(body)
 	if err != nil {
 		err = errors.New("Error occured decoding the response :" + err.Error())
 	}
@@ -133,7 +132,7 @@ func (p *Exorequester) Do() (status int, response map[string]interface{}, err er
 }
 
 //MakeHTTPRequest makes a request to exotel platform api for desire operation
-func MakeHTTPRequest(url string, credentials types.Credentials, method types.Action, data interface{}, debug bool) (status int, resp map[string]interface{}, err error) {
+func MakeHTTPRequest(url string, credentials types.Credentials, method types.Action, data interface{}, debug bool) (status int, resp []byte, err error) {
 	requester := NewExorequester()
 	switch method {
 	case types.READ, types.BULKREAD:

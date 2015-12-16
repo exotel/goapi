@@ -31,8 +31,8 @@ func (c *Client) SetAccountSid(accountSid string) *Client {
 }
 
 //SetUserName sets the user name of the user
-func (c *Client) SetUserName(accountSid string) *Client {
-	c.AccountSid = accountSid
+func (c *Client) SetUserName(userName string) *Client {
+	c.UserName = userName
 	return c
 }
 

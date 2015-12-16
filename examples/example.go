@@ -10,11 +10,11 @@ import (
 
 func initClient() (client *api.Client) {
 	credentials := types.Credentials{
-		UserCredentials:   types.UserCredentials{AccessToken: "APIAccessToken", UserName: "APIUsername"},
+		UserCredentials:   types.UserCredentials{AccessToken: "APIAccessTokenB1", UserName: "APIUsernameB1"},
 		ClientCredentials: types.ClientCredentials{ClientID: "CLIENT_id", ClientSecret: "CLIENT_SECRET"},
 	}
 	client = api.New(credentials)
-	client.SetAccountSid("<ACCOUNT_SID>") //parent working
+	client.SetAccountSid("AC2a002f82e0a34343be06063f2364c85d") //parent working
 	return
 }
 

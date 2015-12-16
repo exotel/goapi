@@ -28,6 +28,13 @@ const (
 	DEBUG
 )
 
+// Error is a struct for platform error
+type Error struct {
+	Code     int    `json:"code"`
+	HTTPCode int    `json:"status"`
+	Message  string `json:"message"`
+}
+
 //Action Has the set of actions possible
 type Action uint8
 
