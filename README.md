@@ -1,7 +1,6 @@
-goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https://godoc.org/github.com/exotel/goapi)
-=====
+goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https://godoc.org/github.com/exotel/goapi)&nbsp;[![Join the chat at https://gitter.im/exotel/goapi](https://badges.gitter.im/exotel/goapi.svg)](https://gitter.im/exotel/goapi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+-------------
 
-[![Join the chat at https://gitter.im/exotel/goapi](https://badges.gitter.im/exotel/goapi.svg)](https://gitter.im/exotel/goapi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![Go-Exotel](http://homegrown.co.in/wp-content/uploads/2014/07/master-shifu-1024x436.jpg)
 ####What is it?
   GoExotel is a exotel platform api client written in golang
