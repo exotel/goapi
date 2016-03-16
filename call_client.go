@@ -60,7 +60,7 @@ func (__receiver_CService *CallService) Details(details resources.CallDetails) *
 	return __receiver_CService
 }
 
-//Call returns an instance of __receiver_CService
+//Call returns an instance of CallService
 func (c *Client) Call() *CallService {
 	callService := CallService{Client: *c}
 	callService.validActions = types.CREATE | types.READ | types.BULKREAD | 0x00

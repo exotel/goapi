@@ -85,7 +85,7 @@ func ({{.Resource | reciever }}Service *{{.Resource}}Service) UpdateDetails(deta
 }
 {{end}}
 
-//{{.Resource}} returns an instance of {{.Resource | reciever }}Service
+//{{.Resource}} returns an instance of {{.Resource}}Service
 func (c *Client) {{.Resource}}() *{{.Resource}}Service {
 	{{.Resource | lower }}Service := {{.Resource}}Service{Client: *c}
 	{{.Resource | lower }}Service.validActions = {{if .Create}}types.CREATE | {{end}}{{if .Read}}types.READ | types.BULKREAD | {{end}}{{if .Update}} types.UPDATE |{{end}}{{if .Delete}} types.DELETE |{{end}} 0x00

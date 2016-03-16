@@ -1,6 +1,8 @@
 package api
 
 import (
+	"log"
+
 	"github.com/exotel/goapi/assets/types"
 	"github.com/exotel/goapi/resources"
 )
@@ -15,13 +17,14 @@ type Client struct {
 	action       types.Action
 	validActions types.Action
 	baseURL      string
+	logger       *log.Logger
 	mode         types.Mode
 	Credentials  types.Credentials
 }
 
 //New Creates an instance of iam client
 func New(cr types.Credentials) *Client {
-	return &Client{Credentials: cr, baseURL: "http://rearch.api.exotel.in"}
+	return &Client{Credentials: cr, baseURL: "http://qa.api.suffix.io/"}
 }
 
 //SetAccountSid sets the account sid of the user
@@ -43,6 +46,12 @@ func (c *Client) Debug(debug bool) *Client {
 		return c
 	}
 	c.mode = types.PRODUCTION
+	return c
+}
+
+//SetLogger sets logger for the class
+func (c *Client) SetLogger(logger *log.Logger) *Client {
+	c.logger = logger
 	return c
 }
 

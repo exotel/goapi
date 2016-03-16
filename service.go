@@ -55,9 +55,7 @@ func (c Client) IsValidData() (ok bool, err error) {
 	for i := 0; i < tp.NumField(); i++ {
 		field := tp.Field(i)
 		emptyValue := helpers.IsEmptyValue(v.Field(i))
-		fmt.Println(field.Name, " => ", v.Field(i).Interface())
 		if emptyValue {
-			fmt.Println("EMPTY VALUE", field.Name, " => ", v.Field(i).Interface())
 			if tagv := field.Tag.Get("mandatory"); tagv == "true" {
 				err = fmt.Errorf(assets.String.MandatoryFieldUnavailable, field.Name)
 				return

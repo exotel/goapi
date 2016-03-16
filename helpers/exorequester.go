@@ -3,6 +3,7 @@ package helpers
 import (
 	"errors"
 	"fmt"
+	"log"
 	"reflect"
 
 	"github.com/exotel/goapi/assets"
@@ -15,6 +16,7 @@ type Exorequester struct {
 	LastError error
 	mode      types.Mode
 	requester *gorequest.SuperAgent
+	logger    log.Logger
 }
 
 //NewExorequester creates a new instance of Exorequester
@@ -122,7 +124,6 @@ func (p *Exorequester) Do() (status int, response []byte, err error) {
 		status = resp.StatusCode
 	}
 
-	p.Log("received data %s", body)
 	response = make([]byte, len(body))
 	response = []byte(body)
 	if err != nil {

@@ -46,7 +46,7 @@ func (__receiver_RService *RecordingService) Filter(filter resources.RecordingFi
 	return __receiver_RService
 }
 
-//Recording returns an instance of __receiver_RService
+//Recording returns an instance of RecordingService
 func (c *Client) Recording() *RecordingService {
 	recordingService := RecordingService{Client: *c}
 	recordingService.validActions = types.READ | types.BULKREAD | 0x00

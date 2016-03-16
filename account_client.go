@@ -74,7 +74,7 @@ func (__receiver_AService *AccountService) UpdateDetails(details resources.Accou
 	return __receiver_AService
 }
 
-//Account returns an instance of __receiver_AService
+//Account returns an instance of AccountService
 func (c *Client) Account() *AccountService {
 	accountService := AccountService{Client: *c}
 	accountService.validActions = types.CREATE | types.READ | types.BULKREAD | types.UPDATE | 0x00

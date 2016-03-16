@@ -82,7 +82,7 @@ func (__receiver_IService *IncomingPhoneNumberService) UpdateDetails(details res
 	return __receiver_IService
 }
 
-//IncomingPhoneNumber returns an instance of __receiver_IService
+//IncomingPhoneNumber returns an instance of IncomingPhoneNumberService
 func (c *Client) IncomingPhoneNumber() *IncomingPhoneNumberService {
 	incomingphonenumberService := IncomingPhoneNumberService{Client: *c}
 	incomingphonenumberService.validActions = types.CREATE | types.READ | types.BULKREAD | types.UPDATE | types.DELETE | 0x00

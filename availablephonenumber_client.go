@@ -46,7 +46,7 @@ func (__receiver_AService *AvailablePhoneNumberService) Filter(filter resources.
 	return __receiver_AService
 }
 
-//AvailablePhoneNumber returns an instance of __receiver_AService
+//AvailablePhoneNumber returns an instance of AvailablePhoneNumberService
 func (c *Client) AvailablePhoneNumber() *AvailablePhoneNumberService {
 	availablephonenumberService := AvailablePhoneNumberService{Client: *c}
 	availablephonenumberService.validActions = types.READ | types.BULKREAD | 0x00

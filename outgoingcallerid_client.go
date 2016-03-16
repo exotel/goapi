@@ -68,7 +68,7 @@ func (__receiver_OService *OutgoingCallerIDService) Details(details resources.Ou
 	return __receiver_OService
 }
 
-//OutgoingCallerID returns an instance of __receiver_OService
+//OutgoingCallerID returns an instance of OutgoingCallerIDService
 func (c *Client) OutgoingCallerID() *OutgoingCallerIDService {
 	outgoingcalleridService := OutgoingCallerIDService{Client: *c}
 	outgoingcalleridService.validActions = types.CREATE | types.READ | types.BULKREAD | types.DELETE | 0x00

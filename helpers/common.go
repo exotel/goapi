@@ -5,9 +5,10 @@ import (
 	"time"
 )
 
-//StructToMap converts a struct to map of string to interface
-//Its uses the tag 'map' to check the name to be used
-//if the value is nil no key is added
+//StructToMap converts one or more struct to a map of string to interface
+//Its uses the tag 'tag' to check the name to be used ,if the second struct had the same
+//tag name the second one will be overriding the first
+//if the value is nil or no tag is defined no key is added
 func StructToMap(tag string, structs ...interface{}) (m map[string]interface{}, err error) {
 	m = make(map[string]interface{})
 	for _, in := range structs {
