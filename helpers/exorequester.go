@@ -74,9 +74,9 @@ func (p *Exorequester) PUT(url string) *Exorequester {
 }
 
 //Log writes log for the Client
-func (p *Exorequester) Log(format string, vals ...interface{}) {
+func (p *Exorequester) Log(vals ...interface{}) {
 	if p.mode == types.DEBUG {
-		fmt.Printf(format+"\n", vals...)
+		fmt.Println(vals...)
 	}
 	return
 }
@@ -104,10 +104,10 @@ func (p *Exorequester) Do() (status int, response []byte, err error) {
 		err = p.LastError
 		return
 	}
-	p.Log("\nusing the url : %s", p.requester.Url)
-	p.Log("using the headers : %v", p.requester.Header)
-	p.Log("using autherisation : %v", p.requester.BasicAuth)
-	p.Log("using the query parameters : %v", p.requester.QueryData)
+	p.Log("using the url: ", p.requester.Url)
+	p.Log("using the headers : ", p.requester.Header)
+	p.Log("using autherisation : ", p.requester.BasicAuth)
+	p.Log("using the query parameters : ", p.requester.QueryData)
 
 	resp, body, errs := p.requester.End()
 

@@ -24,7 +24,7 @@ type Client struct {
 
 //New Creates an instance of iam client
 func New(cr types.Credentials) *Client {
-	return &Client{Credentials: cr, baseURL: "http://qa.api.suffix.io/"}
+	return &Client{Credentials: cr, baseURL: "http://api.suffix.io/"}
 }
 
 //SetAccountSid sets the account sid of the user

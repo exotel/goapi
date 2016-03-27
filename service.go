@@ -28,7 +28,7 @@ func (c Client) IsValidAction() (ok bool, err error) {
 }
 
 //IsValidCredentials Checks if the available credentials are valid or not
-//checks if credentials are provded ,it does not check if the provided credentials are valid or not
+//checks if credentials are provided ,it does not check if the provided credentials are valid or not
 func (c Client) IsValidCredentials() (ok bool, err error) {
 	ok = len(c.Credentials.UserName) != 0 && len(c.Credentials.AccessToken) != 0
 	if !ok {
@@ -92,7 +92,7 @@ func (c *Client) setURL() (err error) {
 //Do does the actual job
 func (c *Client) Do() (status int, result map[string]interface{}, err error) {
 	var ok bool
-	//Check if the credentials are provded
+	//Check if the credentials are provided
 	if ok, err = c.IsValidCredentials(); !ok {
 		return
 	}

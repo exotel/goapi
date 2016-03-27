@@ -27,13 +27,13 @@ type AvailablePhoneNumber struct {
 	Capabilities Capabilities `json:"capabilities"`
 }
 
-//GetAvailablePhoneNumberResponse  is the reponse structure of available phone numbers
+//GetAvailablePhoneNumberResponse  is the response structure of available phone numbers
 //single get  request
 type GetAvailablePhoneNumberResponse struct {
 	AvailablePhoneNumber
 }
 
-//BulkGetAvailablePhoneNumberResponse  is the reponse structure of available phone numbers
+//BulkGetAvailablePhoneNumberResponse  is the response structure of available phone numbers
 //bulk get request
 type BulkGetAvailablePhoneNumberResponse []GetAvailablePhoneNumberResponse
 

@@ -9,7 +9,7 @@ type strings struct {
 	MethodNotSpecified        string
 }
 
-//Strings has all the constant strings defined
+//String has all the constant strings defined
 var String strings
 
 //Initialize all the strings here
@@ -22,7 +22,7 @@ func init() {
 	String.MethodNotSpecified = "Method is not specified"
 }
 
-//Method constant
+//Methods is a contant struct instance storing HTTP methods
 var Methods = struct {
 	Get, Post, Delete, Put string
 }{"GET", "POST", "DELETE", "PUT"}
