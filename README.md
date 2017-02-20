@@ -132,9 +132,9 @@ func main() {
 
 
 ####What if i don't have go installed ?
-This is how you can install go in linux [this is for version 1.5.2 of golang]
+This is how you can install go in linux [this is for version 1.8 of golang]
 ```
-wget https://storage.googleapis.com/golang/go1.5.2.linux-amd64.tar.gz
+wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.5.2.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 ```
@@ -148,13 +148,14 @@ Now you have to set the Workspace,say you are setting,~/go as the worksapce
 this is how it is done
 ```
 export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
 ```
 
-Add these two  export statements in ~/.bashrc so that its set all the time
-Now you are ready to test goexoml,get the library using go get
+Add these two  export statements in ~/.bashrc so that it is set all the time
+Now you are ready to test goapi,get the library using go get
 ie,
 ```
-go get github.com/exotel/goexoml
+go get github.com/exotel/goapi
 ```
 
 Now you can copy paste the sample codes from example folder to `path/to/filename.go` and test by running as
