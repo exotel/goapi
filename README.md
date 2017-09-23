@@ -2,10 +2,13 @@ goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https:
 -------------
 
 ![Go-Exotel](http://homegrown.co.in/wp-content/uploads/2014/07/master-shifu-1024x436.jpg)
-####What is it?
+
+#### What is it?
+
   GoExotel is a exotel platform api client written in golang
 
-####resources
+#### resources
+
 * Account
 * IncomingPhoneNumber  
 * OutgoingCallerID  
@@ -13,7 +16,8 @@ goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https:
 * Call  
 * Recording
 
-####how to use
+#### how to use
+
 Install the library using `go get`
 ```
 go get github.com/exotel/goapi
@@ -24,7 +28,8 @@ or for keeping the version number
 go get gopkg.in/exotel/goapi.v0 //for version v0.x.x
 ```
 
-#####using the client
+##### using the client
+
 initiate the client
 ```
 credentials := types.Credentials{
@@ -50,9 +55,9 @@ if status, data, err := c.Do(); err != nil {
 ```
 
 
-#####For any resource do the following
-consider resource is  `Resource` and the CRUD is allowed for `Resource`
+##### For any resource do the following
 
+consider resource is  `Resource` and the CRUD is allowed for `Resource`
 
 1 . Create Request
 ```
@@ -82,7 +87,8 @@ client.Resource().ID(string).Delete().Do()
 
 
 
-####Sample Code
+#### Sample Code
+
 ```
 package main
 
@@ -131,7 +137,8 @@ func main() {
 
 
 
-####What if i don't have go installed ?
+#### What if i don't have go installed ?
+
 This is how you can install go in linux [this is for version 1.8 of golang]
 ```
 wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
@@ -164,5 +171,5 @@ go run path/to/filename.go
 ````
 
 
-####contributions
+#### contributions
 sarath@exotel.in
