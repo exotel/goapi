@@ -1,7 +1,8 @@
 goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https://godoc.org/github.com/exotel/goapi)&nbsp;[![Join the chat at https://gitter.im/exotel/goapi](https://badges.gitter.im/exotel/goapi.svg)](https://gitter.im/exotel/goapi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)&nbsp;![Report Card](https://goreportcard.com/badge/github.com/exotel/goapi)
--------------
+------------
 
-![Go-Exotel](http://homegrown.co.in/wp-content/uploads/2014/07/master-shifu-1024x436.jpg)
+## [Deprecated] - The REST service used here is not active any more 
+
 
 #### What is it?
 
