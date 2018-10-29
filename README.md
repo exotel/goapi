@@ -1,7 +1,8 @@
 goexotel [![GoDoc](https://godoc.org/github.com/exotel/goapi?status.svg)](https://godoc.org/github.com/exotel/goapi)&nbsp;[![Join the chat at https://gitter.im/exotel/goapi](https://badges.gitter.im/exotel/goapi.svg)](https://gitter.im/exotel/goapi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)&nbsp;![Report Card](https://goreportcard.com/badge/github.com/exotel/goapi)
 ------------
 
-## [Deprecated] - The REST service used here is not active any more 
+
+**[Deprecated] - The REST service used here is not active any more**
 
 
 #### What is it?
